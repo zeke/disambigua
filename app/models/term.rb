@@ -18,6 +18,7 @@ class Term
       page = agent.get(self.disambiguation_url)
     rescue => e
       self.save!
+      return
     end
 
     doc = Nokogiri::HTML.parse(page.body, nil, "UTF-8")
