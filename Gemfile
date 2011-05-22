@@ -25,4 +25,5 @@ group :test, :development do
   gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
   gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
   gem 'factory_girl_rails'
+  gem 'colored'
 end

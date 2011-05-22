@@ -6,16 +6,21 @@ class Term
 
    many :disambiguations
 
-   def disambiguate!     
+   def disambiguate!
 
     # Spoof user agent to avoid a 403 unauthorized
     agent = Mechanize.new do |agent|
       agent.user_agent_alias = "Linux Mozilla"
     end
 
-    # Get the page and parse it
-    body = agent.get(self.disambiguation_url).body
-    doc = Nokogiri::HTML.parse(body, nil, "UTF-8")
+    # Get the page and parse it. Bail if the URL is bad.
+    begin
+      page = agent.get(self.disambiguation_url)
+    rescue => e
+      self.save!
+    end
+
+    doc = Nokogiri::HTML.parse(page.body, nil, "UTF-8")
     
     # build a unique array of links that contain the term
     links = doc.css('#bodyContent a').map do |link|
