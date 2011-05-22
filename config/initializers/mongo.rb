@@ -1,0 +1,1 @@
+MongoMapper.database = "disambigua_#{Rails.env}"
