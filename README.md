@@ -8,4 +8,4 @@ Examples
 
 - [/terms/bat.json](http://disambigua.heroku.com/terms/bat.json)
 - [/terms/junk.json](http://disambigua.heroku.com/terms/junk.json)
-- [/terms/John&Doe.json](http://disambigua.heroku.com/terms/John%Doe.json)
+- [/terms/John%20Doe.json](http://disambigua.heroku.com/terms/John%20Doe.json)
