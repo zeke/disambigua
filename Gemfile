@@ -7,6 +7,9 @@ gem 'mysql2'
 gem 'bson_ext' # MongoDB Ruby driver
 gem 'mongo_mapper'
 
+gem 'mechanize'
+gem 'nokogiri'
+
 # Asset template engines
 gem 'haml'
 gem 'sass'
