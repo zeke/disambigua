@@ -22,6 +22,8 @@ gem 'jquery-rails'
 # http://stackoverflow.com/questions/6075961/problem-deploying-rails-3-1-project-to-heroku-could-not-find-a-javascript-runtim
 group :production do
   gem 'therubyracer-heroku', '0.8.1.pre3'
+  gem 'pg'
+  # gem 'activerecord-postgresql-adapter'
 end
 
 group :test, :development do
