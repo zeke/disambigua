@@ -1,5 +1,5 @@
 Disambigua::Application.routes.draw do
-  resources :terms, :only => [:show]
+  resources :terms, :only => [:index, :show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
