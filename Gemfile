@@ -2,8 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-
+# gem 'mysql2'
 
 gem 'bson_ext' # MongoDB Ruby driver
 gem 'mongo_mapper'
