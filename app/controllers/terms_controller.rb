@@ -11,11 +11,11 @@ class TermsController < ApplicationController
   def show
     @term = Term.find_or_initialize_by_name(params[:id])
     
-    @term.disambiguate! if @term.new_record?
+    @term.process! if @term.new_record?
 
     respond_to do |format|
       # format.html
-      format.json { render :json => @term.disambiguations.map(&:name).to_json }
+      format.json { render :json => @term }
     end
   end
   

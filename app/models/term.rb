@@ -2,29 +2,23 @@ class Term
   include MongoMapper::Document
 
    key :name, String, :required => true, :unique => true
-   # key :age,  Integer
 
    many :disambiguations
+   many :translations
+   
+   def process!
+     disambiguate!
+     translate!
+   end
 
    def disambiguate!
-
-    # Spoof user agent to avoid a 403 unauthorized
-    agent = Mechanize.new do |agent|
-      agent.user_agent_alias = "Linux Mozilla"
-    end
-
-    # Get the page and parse it. Bail if the URL is bad.
-    begin
-      page = agent.get(self.disambiguation_url)
-    rescue => e
-      self.save!
-      return
-    end
-
-    doc = Nokogiri::HTML.parse(page.body, nil, "UTF-8")
-    
-    # build a unique array of links that contain the term
-    links = doc.css('#bodyContent a').map do |link|
+     
+    # Scrape the page
+    page = Page.new(self.disambiguation_url)
+    self.save! and return unless page.valid?
+      
+    # Build a *unique* array of links that contain the term
+    links = page.parsed.css('#bodyContent a').map do |link|
       next unless link.content.downcase.include?(self.name.downcase)
       next if link.content.include?('disambiguation')
       next if link.content.include?('http')
@@ -32,7 +26,7 @@ class Term
       link
     end.compact.uniq
     
-    # create dabs
+    # Create dabs
     links.each do |link|
       self.disambiguations.build(:name => link.content)
     end
@@ -40,13 +34,38 @@ class Term
     self.save!
   end
   
+  def translate!
+
+    # Scrape the page
+    page = Page.new(self.url)
+    self.save! and return unless page.valid?
+      
+    # Iterate over tranlation elements, generating translation objects
+    #
+    # <li class="interwiki-es FA" title="This is a featured article in another language.">
+    # <a href="http://es.wikipedia.org/wiki/Felis_silvestris_catus" title="Felis silvestris catus">Español</a></li>
+    page.parsed.css('#p-lang li').each do |li|
+      t = self.translations.build
+      link = li.css('a').first
+      t.name = link['title']
+      t.language_code = link['href'].scan(/(\w+).wikipedia.org/).flatten.first
+      t.language_name = link.content
+    end
+            
+    self.save!
+  end
+  
+  def url
+    "http://en.wikipedia.org/wiki/#{self.wikified_name}"
+  end  
+  
   def disambiguation_url
     "http://en.wikipedia.org/wiki/#{self.wikified_name}_(disambiguation)"
   end
 
-   def wikified_name
-     wn = self.name.slice(0,1).capitalize + self.name.slice(1..-1) # capitalize first letter
-     wn.gsub(/ /, '_') # replace spaces with underscores
+  # Capitalize first letter and replace spaces with underscores
+  def wikified_name
+     self.name.slice(0,1).capitalize + self.name.slice(1..-1).gsub(/ /, '_')
   end
    
 end

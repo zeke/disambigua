@@ -27,6 +27,16 @@ describe Term do
   
   end
   
+  describe "process!" do
+    
+    it "disambiguates and translates when process! is called" do
+      @term.should_receive(:disambiguate!).and_return(true)
+      @term.should_receive(:translate!).and_return(true)
+      @term.process!
+    end
+    
+  end
+  
   describe "disambiguation" do
   
     it "has associated dabs" do
@@ -46,6 +56,45 @@ describe Term do
       raw_dabs = @term.disambiguations.map(&:name)
       raw_dabs.should include('The Bat (1926 film)')
       raw_dabs.should include('Bat (goddess)')
+    end
+    
+  end
+  
+  describe "translation" do
+  
+    it "has associated translations" do
+      @term = Term.create!(:name => 'cat')
+      @term.translations.size.should == 0
+      @term.translations.build(:name => 'gato')
+      @term.translations.build(:name => 'chat')
+      @term.translations.build(:name => 'felini')
+      @term.save!
+      @term.translations.size.should == 3
+    end
+  
+    it "auto-translate" do
+      @term = Term.create!(:name => 'cat')
+      @term.translate!
+      @term.translations.should_not be_empty
+      raw_translations = @term.translations.map(&:name)
+      raw_translations.should include('Chat')
+      raw_translations.should include('Felis silvestris catus')
+    end
+    
+  end
+  
+  describe "URLs" do
+    
+    before do
+      @term.name = "cheese whiz"
+    end
+    
+    it "has a URL" do
+      @term.url.should =~ /wiki\/Cheese_whiz/
+    end
+    
+    it "has a disambiguation URL" do
+      @term.disambiguation_url.should =~ /wiki\/Cheese_whiz_\(disambiguation\)/
     end
     
   end

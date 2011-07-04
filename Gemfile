@@ -11,7 +11,7 @@ gem 'mechanize'
 gem 'nokogiri'
 
 # Asset template engines
-gem 'haml'
+# gem 'haml'
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
@@ -35,4 +35,11 @@ group :test, :development do
   gem 'colored'
   gem 'autotest'
   gem 'autotest-rails-pure'
+end
+
+group :autotest do
+  gem 'autotest'
+  gem 'autotest-rails-pure'
+  # gem 'autotest-growl'
+  # gem 'autotest-fsevent'
 end
