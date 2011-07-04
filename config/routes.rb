@@ -1,5 +1,9 @@
 Disambigua::Application.routes.draw do
-  resources :terms, :only => [:index, :show]
+  resources :terms, :only => [:index]
+  
+  # match 'terms/:id' => 'terms#show', :defaults => { :format => 'json' }
+  match 'terms/:id/disambiguations' => 'terms#disambiguations', :defaults => { :format => 'json' }
+  match 'terms/:id/translations' => 'terms#translations', :defaults => { :format => 'json' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
