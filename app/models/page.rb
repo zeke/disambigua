@@ -16,14 +16,8 @@ class Page
     end
 
     # Get the page and parse it.
-    begin
-      self.raw = agent.get(url)
-      self.parsed = Nokogiri::HTML.parse(self.raw.body, nil, "UTF-8")
-    rescue => e
-      raise e.inspect
-      self.raw = nil
-      self.parsed = nil
-    end
+    self.raw = agent.get(url)
+    self.parsed = Nokogiri::HTML.parse(self.raw.body, nil, "UTF-8")
 
     self
   end

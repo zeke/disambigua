@@ -1,5 +1,7 @@
 class TermsController < ApplicationController
   
+  before_filter :find_term, :only => [:disambiguations, :translations, :free_range_definitions]
+  
   def index
     @terms = Term.all
     respond_to do |format|
@@ -7,19 +9,9 @@ class TermsController < ApplicationController
       format.json { render :json => @terms }
     end
   end
-  
-  # def show
-  #   @term = Term.find_or_initialize_by_name(params[:id])
-  #   @term.process! if @term.new_record?
-  # 
-  #   respond_to do |format|
-  #     format.json { render :json => @term, :except => [:id] }
-  #   end
-  # end
 
   def disambiguations
-    @term = Term.find_or_initialize_by_name(params[:id])
-    @term.process! if @term.new_record?
+    @term.disambiguate unless @term.disambiguations.present?
 
     respond_to do |format|
       format.json { render :json => @term.disambiguations, :except => [:id] }
@@ -27,13 +19,25 @@ class TermsController < ApplicationController
   end
 
   def translations
-    @term = Term.find_or_initialize_by_name(params[:id])
-    @term.process! if @term.new_record?
+    @term.translate! unless @term.translations.present?
 
     respond_to do |format|
       format.json { render :json => @term.translations, :except => [:id] }
     end
   end
-
   
+  def free_range_definitions
+    @term.lasso!# unless @term.free_range_definitions.present?
+
+    respond_to do |format|
+      format.json { render :json => @term.free_range_definitions, :except => [:id] }
+    end
+  end
+
+protected
+
+  def find_term
+    @term = Term.find_or_initialize_by_name(params[:id])
+  end
+
 end

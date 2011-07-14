@@ -32,6 +32,7 @@ describe Term do
     it "disambiguates and translates when process! is called" do
       @term.should_receive(:disambiguate!).and_return(true)
       @term.should_receive(:translate!).and_return(true)
+      @term.should_receive(:lasso!).and_return(true)
       @term.process!
     end
     
@@ -72,13 +73,35 @@ describe Term do
       @term.translations.size.should == 3
     end
   
-    it "auto-translate" do
+    it "auto-translates" do
       @term = Term.create!(:name => 'cat')
       @term.translate!
       @term.translations.should_not be_empty
       raw_translations = @term.translations.map(&:name)
       raw_translations.should include('Chat')
       raw_translations.should include('Felis silvestris catus')
+    end
+    
+  end
+  
+  describe "free range definitions" do
+  
+    it "has associated FRDs" do
+      @term = Term.create!(:name => 'cheese')
+      @term.free_range_definitions.size.should == 0
+      @term.free_range_definitions.build(:body => 'cheese is great', :page_url => "http://cheese.com", :page_title => 'Cheese!')
+      @term.free_range_definitions.build(:body => 'cheese is grate', :page_url => "http://cheese.com", :page_title => 'Cheese!')
+      @term.free_range_definitions.build(:body => 'cheese is my friend', :page_url => "http://cheese.com", :page_title => 'Cheese!')
+      @term.save!
+      @term.free_range_definitions.size.should == 3
+    end
+  
+    it "auto-lassos" do
+      @term = Term.create!(:name => 'cheese')
+      @term.lasso!
+      @term.free_range_definitions.should_not be_empty
+      raw_freds = @term.translations.map(&:page_url)
+      raw_freds.should include('http://www.cheese.com/')
     end
     
   end

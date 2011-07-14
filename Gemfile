@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails',     :git => 'git://github.com/rails/rails.git'
+gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # gem 'mysql2'
 
 gem 'bson_ext' # MongoDB Ruby driver
 gem 'mongo_mapper'
 
-gem 'mechanize'
+gem 'mechanize', '2.0.1'
 gem 'nokogiri'
 
 # Asset template engines

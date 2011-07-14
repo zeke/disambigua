@@ -16,7 +16,7 @@ describe TermsController do
     
   end
 
-  describe "GET show" do
+  describe "GET disambiguations" do
     
     before do
       @term = Factory(:term, :name => 'foo')
@@ -24,14 +24,25 @@ describe TermsController do
     
     it "assigns @term" do
       Term.should_receive(:find_or_initialize_by_name).with('foo').and_return(@term)
-      get :show, :id => 'foo'
+      get :disambiguations, :id => 'foo'
       assigns(:term).should eq(@term)
     end
-    
-    # it "honors `disambigation_only` param"
-
-    # it "honors `translation_only` param"
-    
+        
   end
+
+  describe "GET free_range_definitions" do
+    
+    before do
+      @term = Factory(:term, :name => 'foo')
+    end
+    
+    it "assigns @term" do
+      Term.should_receive(:find_or_initialize_by_name).with('foo').and_return(@term)
+      get :free_range_definitions, :id => 'foo'
+      assigns(:term).should eq(@term)
+    end
+        
+  end
+
 
 end

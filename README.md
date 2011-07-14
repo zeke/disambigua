@@ -1,15 +1,14 @@
 disambigua
 ==========
 
-Disambigua is a Wikipedia disambiguation webservice.
-
+Disambigua is a Wikipedia disambiguation/translation webservice. It RESTfully serves up JSON.
 
 Examples
 --------
 
-- [/terms/bat.json](http://disambigua.heroku.com/terms/bat.json)
-- [/terms/cat.json](http://disambigua.heroku.com/terms/cat.json)
-- [/terms/James%20Brown.json](http://disambigua.heroku.com/terms/James%20Brown.json)
+- [/terms/bat/disambiguations](http://disambigua.heroku.com/terms/bat/disambiguations)
+- [/terms/cat/translation](http://disambigua.heroku.com/terms/cat/translations)
+- [/terms/James%20Brown/disambigua](http://disambigua.heroku.com/terms/James%20Brown/disambiguations)
 
 Guts
 ----
