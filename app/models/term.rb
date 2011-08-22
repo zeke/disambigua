@@ -59,6 +59,13 @@ class Term
   
   def lasso!
     
+    url = "http://www.google.com/search?q=#{CGI.escape(query)}"
+          res = Nokogiri::HTML(open(url)).at("h3.r")
+
+          title = res.text
+          link = res.at('a')[:href]
+          desc = res.at("./following::div").children.first.text
+    
     # Scrape the page
     # page = Page.new(self.fred_url)
     # self.save! and return unless page.valid?
