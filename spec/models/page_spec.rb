@@ -3,9 +3,7 @@ require 'spec_helper'
 describe Page do
   
   before do
-    @page = Page.new('http://en.wikipedia.org/wiki/Dog')
-    @page.raw = 'HTML'
-    @page.parsed = 'nokogiri parsed HTML'
+    @page = Factory(:page)
   end
     
   describe "validations" do
@@ -24,6 +22,20 @@ describe Page do
       @page.should have(1).error_on(:parsed)
     end
   
+  end
+  
+  describe "scrape_technique" do
+    
+    it "is simple if URL is on google.com" do
+      @page = Factory(:google_page)
+      @page.scrape_technique.should == 'simple'
+    end
+    
+    it "is advanced if URL is not on google.com" do
+      @page.scrape_technique.should_not include('google.com')
+      @page.scrape_technique.should == 'advanced'
+    end
+    
   end
   
 end

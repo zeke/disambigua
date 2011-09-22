@@ -100,7 +100,7 @@ describe Term do
       @term = Term.create!(:name => 'cheese')
       @term.lasso!
       @term.free_range_definitions.should_not be_empty
-      raw_freds = @term.translations.map(&:page_url)
+      raw_freds = @term.free_range_definitions.map(&:page_url)
       raw_freds.should include('http://www.cheese.com/')
     end
     

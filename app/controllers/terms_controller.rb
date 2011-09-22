@@ -11,7 +11,7 @@ class TermsController < ApplicationController
   end
 
   def disambiguations
-    @term.disambiguate unless @term.disambiguations.present?
+    @term.disambiguate!
 
     respond_to do |format|
       format.json { render :json => @term.disambiguations, :except => [:id] }
@@ -19,7 +19,7 @@ class TermsController < ApplicationController
   end
 
   def translations
-    @term.translate! unless @term.translations.present?
+    @term.translate!
 
     respond_to do |format|
       format.json { render :json => @term.translations, :except => [:id] }

@@ -15,8 +15,9 @@ gem 'nokogiri'
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
-
+gem 'log_buddy'
 gem 'jquery-rails'
+gem 'wordnik_ruby_helpers', '~>0.1.8'
 
 # http://stackoverflow.com/questions/6075961/problem-deploying-rails-3-1-project-to-heroku-could-not-find-a-javascript-runtim
 group :production do
