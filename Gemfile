@@ -1,17 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-# gem 'mysql2'
-
-gem 'bson_ext' # MongoDB Ruby driver
+gem 'rails', '~>3.1.0'#:git => 'git://github.com/rails/rails.git'
+gem 'bson_ext'
 gem 'mongo_mapper'
-
 gem 'mechanize', '2.0.1'
 gem 'nokogiri'
-
-# Asset template engines
-# gem 'haml'
 gem 'sass'
 gem 'coffee-script'
 gem 'uglifier'
@@ -19,7 +12,7 @@ gem 'log_buddy'
 gem 'jquery-rails'
 gem 'wordnik_ruby_helpers', '~>0.1.8'
 
-# http://stackoverflow.com/questions/6075961/problem-deploying-rails-3-1-project-to-heroku-could-not-find-a-javascript-runtim
+# http://stackoverflow.com/questions/6075961/problem-deploying-rails-3-1-project-to-heroku-could-not-find-a-javascript-runtime
 group :production do
   gem 'therubyracer-heroku', '0.8.1.pre3'
   # gem 'pg'
