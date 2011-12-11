@@ -8,7 +8,7 @@ class Term
    many :disambiguations
    many :translations
    many :free_range_definitions
-   # one :desk
+   one :wikipedia_definition
    
    def process!
      disambiguate!
@@ -72,6 +72,25 @@ class Term
       frd.body = result.css('div.s').inner_html.encode("UTF-8")
     end
     
+    self.save!
+  end
+  
+  def get_wikipedia_definition!
+    return true if wikipedia_definition.present?
+
+    # Scrape the page
+    begin
+      page = Page.new(self.url)
+      self.save! and return unless page.valid?
+    rescue
+      return
+    end
+
+    # Grab the first paragraph from the bodyContent
+    self.wikipedia_definition = WikipediaDefinition.new(
+      :text => page.parsed.css('#bodyContent p:first').inner_html
+    )
+            
     self.save!
   end
   

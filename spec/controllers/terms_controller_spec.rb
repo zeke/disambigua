@@ -18,9 +18,17 @@ describe TermsController do
 
   describe "GET disambiguations" do
 
-    
     it "assigns @term" do
       get :disambiguations, :id => 'foo'
+      assigns(:term).should be_a Term
+    end
+        
+  end
+
+  describe "GET translations" do
+
+    it "assigns @term" do
+      get :translations, :id => 'foo'
       assigns(:term).should be_a Term
     end
         
@@ -34,6 +42,16 @@ describe TermsController do
     end
         
   end
+
+  describe "GET wikipedia_definition" do
+
+    it "assigns @term" do
+      get :wikipedia_definition, :id => 'cat'
+      assigns(:term).should be_a Term
+    end
+        
+  end
+
 
 
 end

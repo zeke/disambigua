@@ -106,6 +106,17 @@ describe Term do
     
   end
   
+  describe "wikipedia_definition" do
+
+    it "fetches the first paragraph from the term's Wikipedia article" do
+      @term = Term.create!(:name => 'dog')
+      @term.get_wikipedia_definition!
+      @term.wikipedia_definition.should be_a WikipediaDefinition
+      @term.wikipedia_definition.text.strip_tags.should =~ /may have been the first animal to be domesticated/i
+    end
+
+  end
+  
   describe "URLs" do
     
     before do

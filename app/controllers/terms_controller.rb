@@ -1,6 +1,6 @@
 class TermsController < ApplicationController
   
-  before_filter :find_term, :only => [:disambiguations, :translations, :free_range_definitions]
+  before_filter :find_term, :only => [:disambiguations, :translations, :free_range_definitions, :wikipedia_definition]
   
   def index
     @terms = Term.all
@@ -33,6 +33,15 @@ class TermsController < ApplicationController
       format.json { render :json => @term.free_range_definitions, :except => [:id] }
     end
   end
+  
+  def wikipedia_definition
+    @term.get_wikipedia_definition!
+
+    respond_to do |format|
+      format.json { render :json => @term.wikipedia_definition }
+    end
+  end
+
 
 protected
 

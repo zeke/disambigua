@@ -8,6 +8,7 @@ Disambigua::Application.routes.draw do
   match 'terms/:id/free_range_definitions' => 'terms#free_range_definitions', :defaults => { :format => 'json' }
   match 'terms/:id/definitions' => 'terms#free_range_definitions', :defaults => { :format => 'json' }
   match 'terms/:id/frds' => 'terms#free_range_definitions', :defaults => { :format => 'json' }
+  match 'terms/:id/wikipedia_definition' => 'terms#wikipedia_definition', :defaults => { :format => 'json' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
