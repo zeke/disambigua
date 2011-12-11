@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.1.0'#:git => 'git://github.com/rails/rails.git'
+gem 'rails', '~> 3.1.0'
 gem 'bson_ext'
 gem 'mongo_mapper'
 gem 'mechanize', '2.0.1'
@@ -19,21 +19,20 @@ group :production do
   # gem 'activerecord-postgresql-adapter'
 end
 
-group :test, :development do
-  gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-  gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-  gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-  gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-  gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
-  gem 'factory_girl_rails'
-  gem 'colored'
-  gem 'autotest'
-  gem 'autotest-rails-pure'
-end
-
-group :autotest do
-  gem 'autotest'
-  gem 'autotest-rails-pure'
-  # gem 'autotest-growl'
-  # gem 'autotest-fsevent'
+group :test do
+  gem 'rspec', '2.7.0'
+  gem 'rspec-rails', '2.7.0'
+  gem 'rspec2-rails-views-matchers'
+  gem 'webrat'
+  gem 'factory_girl', '1.3.3'
+  gem 'factory_girl_rails', '1.0.1'
+  gem 'colored', '1.2'
+  gem 'capybara', '1.0.0'
+  gem 'database_cleaner'
+  gem 'i18n'
+  gem 'autotest', '~>4.4.6'
+  gem 'autotest-rails-pure', '~>4.1.2'
+  gem 'autotest-growl', '~>0.2.16'
+  gem 'autotest-fsevent', '~>0.2.7', :require => false unless RUBY_PLATFORM =~ /darwin/i
+  gem 'simplecov', :require => false
 end
