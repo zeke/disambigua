@@ -54,7 +54,7 @@ class Term
     page.parsed.css('#p-lang li').each do |li|
       t = self.translations.build
       link = li.css('a').first
-      t.name = link['title']
+      t.name = URI.unescape(link[:href].split("/").last).gsub('_', ' ')
       t.language_code = link['href'].scan(/(\w+).wikipedia.org/).flatten.first
       t.language_name = link.content
     end
