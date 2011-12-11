@@ -69,7 +69,7 @@ class Term
       frd = self.free_range_definitions.build
       frd.page_title = result.css('h3.r a').first.inner_html.strip_tags
       frd.page_url = result.css('h3.r a').first[:href]
-      frd.body = result.css('div.s').inner_html
+      frd.body = result.css('div.s').inner_html.encode("UTF-8")
     end
     
     self.save!
