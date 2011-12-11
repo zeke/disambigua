@@ -8,6 +8,7 @@ class Term
    many :disambiguations
    many :translations
    many :free_range_definitions
+   # one :desk
    
    def process!
      disambiguate!
@@ -64,14 +65,11 @@ class Term
   def lasso!
     page = Page.new(fred_url)
     
-    page.parsed.css('li.g').each do |result|
-      # raise result.css('div.s').last.inspect
+    page.parsed.css('li.g').each do |result|      
       frd = self.free_range_definitions.build
-      frd.page_title = result.css('a.l').first.text
+      frd.page_title = result.css('h3.r a').first.inner_html.strip_tags
       frd.page_url = result.css('h3.r a').first[:href]
-      body = result.css('div.s').inner_html
-      d { body.strip_tags }
-      frd.body = body
+      frd.body = result.css('div.s').inner_html
     end
     
     self.save!
