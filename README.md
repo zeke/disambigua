@@ -1,7 +1,9 @@
 disambigua
 ==========
 
-Disambigua is a Wikipedia disambiguation/translation webservice. It RESTfully serves up JSON.
+Disambigua is a Wikipedia disambiguation/translation JSON webservice.
+
+**Note**: This project is no longer maintained. Its translation functionality has been replaced by [ord.zeke.xxx](http://.zeke.xxx), a simpler node.js app which is also open source and available at [github.com/zeke/ord](https://github.com/zeke/ord).
 
 Examples
 --------
